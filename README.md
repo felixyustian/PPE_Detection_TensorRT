@@ -51,7 +51,7 @@ The system is designed to withstand extreme I/O loads from 15 cameras. Dynamic b
 
 
 
-### Quantization Evaluation & "Layer Collapse" (Part B)
+### 2. Quantization Evaluation & "Layer Collapse" (Part B)
 
 Through dynamic benchmarking on the YOLOv11s architecture, it was discovered that:
 
