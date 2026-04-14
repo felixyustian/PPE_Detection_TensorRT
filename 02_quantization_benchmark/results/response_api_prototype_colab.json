@@ -1,0 +1,16 @@
+[
+  {
+    "id": "v01",
+    "camera_id": "cam-01",
+    "violation_types": [
+      "no_helmet"
+    ]
+  },
+  {
+    "id": "v02",
+    "camera_id": "cam-02",
+    "violation_types": [
+      "no_safety_vest"
+    ]
+  }
+]
