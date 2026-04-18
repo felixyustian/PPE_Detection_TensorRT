@@ -10,6 +10,42 @@ The approach taken in this repository goes beyond basic model training. The solu
 
 ---
 
+```mermaid
+graph LR
+    subgraph Data_Acquisition [Inference Stage]
+        Cam[RTSP Stream / Video File] --> Pre[Pre-Processing<br/>Letterbox/Normalize]
+    end
+
+    subgraph TensorRT_Optimization [Optimization & Acceleration]
+        Model[YOLOv8/v11 Model] --> Export[Export to ONNX]
+        Export --> Engine[TensorRT Engine Refitting]
+        
+        subgraph Quantization [Precision Mode]
+            Engine --- FP32[Full Precision]
+            Engine --- FP16[Half Precision]
+            Engine --- INT8[Post-Training Quantization]
+        end
+    end
+
+    subgraph GPU_Execution [Hardware Execution - NVIDIA Jetson/RTX]
+        Pre --> Infer[TensorRT C++ / Python API]
+        Engine --> Infer
+        Infer --> Post[Post-Processing<br/>NMS / BBox Scaling]
+    end
+
+    subgraph Business_Logic [PPE HSE Logic]
+        Post --> Logic{Compliance Check}
+        Logic -- "Missing Helmet/Vest" --> Alert[Trigger Alarm / Alert]
+        Logic -- "Safe" --> Display[Real-time Stream Overlay]
+    end
+
+    style TensorRT_Optimization fill:#76b900,stroke:#333,stroke-width:2px,color:#fff
+    style GPU_Execution fill:#000,stroke:#76b900,stroke-width:2px,color:#fff
+    style Business_Logic fill:#f4f4f4,stroke:#333,stroke-width:1px
+```
+
+---
+
 ## 🗂️ Repository Structure
 
 This repository is divided into three main domains representing the AI development lifecycle at an Enterprise scale:
